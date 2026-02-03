@@ -1,0 +1,32 @@
+name: Generate Series Graph
+
+on:
+  push:
+    branches:
+      - main  # Runs every time you push data to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: pip install pandas seaborn matplotlib
+
+      - name: Generate Graph Image
+        run: python generate_graph.py  # This runs the script we wrote earlier
+
+      - name: Commit and Push Image
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add series_graph.png
+          git commit -m "Update Series Graph Image" || exit 0
+          git push
