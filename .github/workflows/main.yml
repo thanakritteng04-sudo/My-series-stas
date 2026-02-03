@@ -1,13 +1,24 @@
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# 1. Your S1-S9 Episode Data
-data = {
-    "S1": [8.1, 8.4, 8.2, 8.4, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 8.8, 8.8, None, None, None, None, None],
-    "S2": [8.8, 8.4, 8.3, 8.2, 8.1, 8.8, 8.6, 8.1, 8.5, 8.2, 8.6, 8.5, None, None, None, None, None],
-    "S3": [8.1, 8.3, 8.3, 8.6, 8.2, 8.3, 8.6, 8.2, 7.9, 8.3, 8.2, 8.9, None, None, None, None, None],
-    "S4": [8.8, 8.6, 8.4, 8.9, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 9.2, 9.3, 9.7, None, None, None, None],
-    "S5": [8.1, 8.4, 8.2, 8.4, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 8.4, 8.2, None, None, None, None, None],
-    "S6": [8.1, 8.8, 8.5, 8.3, 8.3, 8.5, 7.
-    
+name: Generate Series Graph
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install pandas seaborn matplotlib
+      - run: python generate_graph.py
+      - run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add series_graph.png
+          git commit -m "Update graph" || exit 0
+          git push
+          
