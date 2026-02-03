@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 # 1. Your S1-S9 Episode Data
-# Padded with 'None' so the grid stays aligned
 data = {
     "S1": [8.1, 8.4, 8.2, 8.4, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 8.8, 8.8, None, None, None, None, None],
     "S2": [8.8, 8.4, 8.3, 8.2, 8.1, 8.8, 8.6, 8.1, 8.5, 8.2, 8.6, 8.5, None, None, None, None, None],
@@ -21,10 +20,9 @@ data = {
 df = pd.DataFrame(data).T
 df.columns = [f"E{i+1}" for i in range(17)]
 
-# 3. Series Graph Color Palette
-# Hex codes match the visual style of your screenshot
-colors = ["#712b8d", "#e63946", "#f4a261", "#e9c46a", "#90ee90", "#006400", "#0000ff"]
-nodes = [0.0, 0.45, 0.6, 0.7, 0.8, 0.9, 0.97, 1.0]
+# 3. Fixed Series Graph Color Palette (Corrected Nodes)
+colors = ["#712b8d", "#e63946", "#f4a261", "#e9c46a", "#90ee90", "#228B22", "#0000ff"]
+nodes = [0.0, 0.49, 0.6, 0.7, 0.8, 0.9, 1.0] # Fixed: Starts at 0, ends at 1
 cmap = mcolors.LinearSegmentedColormap.from_list("seriesgraph", list(zip(nodes, colors)))
 
 # 4. Create Heatmap
