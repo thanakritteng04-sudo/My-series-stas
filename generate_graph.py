@@ -1,0 +1,42 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+
+# 1. Your S1-S9 Episode Data
+# Padded with 'None' so the grid stays aligned
+data = {
+    "S1": [8.1, 8.4, 8.2, 8.4, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 8.8, 8.8, None, None, None, None, None],
+    "S2": [8.8, 8.4, 8.3, 8.2, 8.1, 8.8, 8.6, 8.1, 8.5, 8.2, 8.6, 8.5, None, None, None, None, None],
+    "S3": [8.1, 8.3, 8.3, 8.6, 8.2, 8.3, 8.6, 8.2, 7.9, 8.3, 8.2, 8.9, None, None, None, None, None],
+    "S4": [8.8, 8.6, 8.4, 8.9, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 9.2, 9.3, 9.7, None, None, None, None],
+    "S5": [8.1, 8.4, 8.2, 8.4, 8.7, 8.3, 8.8, 8.5, 9.2, 9.1, 8.4, 8.2, None, None, None, None, None],
+    "S6": [8.1, 8.8, 8.5, 8.3, 8.3, 8.5, 7.9, 7.9, 8.6, 8.0, 9.3, 9.5, None, None, None, None, None],
+    "S7": [9.5, 8.9, 8.7, 8.9, 8.2, 7.9, 7.9, 8.9, 8.4, 8.9, 9.1, 9.1, 9.9, None, None, None, None],
+    "S8": [8.8, 8.4, 9.4, 8.4, 4.9, 8.4, 8.9, 9.5, 9.5, 9.6, 8.6, 8.6, 9.1, None, None, None, None],
+    "S9": [9.4, 8.8, 8.9, 8.8, 8.7, 9.5, 9.4, 9.6, 9.9, 9.8, 8.4, 8.9, 8.9, 8.9, 9.5, 9.4, 10.0]
+}
+
+# 2. Create DataFrame
+df = pd.DataFrame(data).T
+df.columns = [f"E{i+1}" for i in range(17)]
+
+# 3. Series Graph Color Palette
+# Hex codes match the visual style of your screenshot
+colors = ["#712b8d", "#e63946", "#f4a261", "#e9c46a", "#90ee90", "#006400", "#0000ff"]
+nodes = [0.0, 0.45, 0.6, 0.7, 0.8, 0.9, 0.97, 1.0]
+cmap = mcolors.LinearSegmentedColormap.from_list("seriesgraph", list(zip(nodes, colors)))
+
+# 4. Create Heatmap
+plt.figure(figsize=(15, 8), facecolor='#121212')
+sns.set(rc={'axes.facecolor':'#121212', 'figure.facecolor':'#121212'})
+
+ax = sns.heatmap(df, annot=True, cmap=cmap, cbar=False, linewidths=1, linecolor='#121212',
+                 annot_kws={"weight": "bold", "color": "white", "size": 9})
+
+plt.title("SERIES LEGACY: S1 - S9", color="white", fontsize=20, pad=20)
+plt.xticks(color="white")
+plt.yticks(color="white", rotation=0)
+
+# 5. Save the Image
+plt.savefig("series_graph.png", bbox_inches='tight', facecolor='#121212')
