@@ -21,4 +21,5 @@ jobs:
           git add series_graph.png
           git commit -m "Update graph" || exit 0
           git push
+
           
