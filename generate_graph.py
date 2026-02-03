@@ -1,7 +1,6 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
 
 # 1. Your S1-S9 Episode Data
 data = {
@@ -16,26 +15,22 @@ data = {
     "S9": [9.4, 8.8, 8.9, 8.8, 8.7, 9.5, 9.4, 9.6, 9.9, 9.8, 8.4, 8.9, 8.9, 8.9, 9.5, 9.4, 10.0]
 }
 
-# 2. Create DataFrame
+# 2. Setup DataFrame
 df = pd.DataFrame(data).T
 df.columns = [f"E{i+1}" for i in range(17)]
 
-# 3. Corrected Color Palette
-# This uses a standard color range to avoid the "mapping points" error
-cmap = mcolors.LinearSegmentedColormap.from_list("seriesgraph", ["#712b8d", "#e63946", "#f4a261", "#90ee90", "#0000ff"])
-
-# 4. Create Heatmap
+# 3. Create Heatmap (Simplified to avoid the ValueError)
 plt.figure(figsize=(15, 8), facecolor='#121212')
 sns.set(rc={'axes.facecolor':'#121212', 'figure.facecolor':'#121212'})
 
-ax = sns.heatmap(df, annot=True, cmap=cmap, cbar=False, linewidths=1, linecolor='#121212',
-                 annot_kws={"weight": "bold", "color": "white", "size": 9})
+# Using 'RdYlGn' - It's built-in, stable, and color-codes Red (low) to Green (high)
+ax = sns.heatmap(df, annot=True, cmap='RdYlGn', cbar=False, linewidths=1, linecolor='#121212',
+                 annot_kws={"weight": "bold", "color": "black", "size": 9})
 
 plt.title("SERIES LEGACY: S1 - S9", color="white", fontsize=20, pad=20)
 plt.xticks(color="white")
 plt.yticks(color="white", rotation=0)
 
-# 5. Save the Image
+# 4. Save the actual file that the README is looking for
 plt.savefig("series_graph.png", bbox_inches='tight', facecolor='#121212')
-
 
