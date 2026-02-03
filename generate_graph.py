@@ -20,9 +20,10 @@ data = {
 df = pd.DataFrame(data).T
 df.columns = [f"E{i+1}" for i in range(17)]
 
-# 3. Fixed Series Graph Color Palette (Corrected Nodes)
+# 3. Fixed Series Graph Color Palette
+# Seven colors paired with seven mapping points (0.0 to 1.0)
 colors = ["#712b8d", "#e63946", "#f4a261", "#e9c46a", "#90ee90", "#228B22", "#0000ff"]
-nodes = [0.0, 0.49, 0.6, 0.7, 0.8, 0.9, 1.0] # Fixed: Starts at 0, ends at 1
+nodes = [0.0, 0.49, 0.6, 0.7, 0.8, 0.9, 1.0] 
 cmap = mcolors.LinearSegmentedColormap.from_list("seriesgraph", list(zip(nodes, colors)))
 
 # 4. Create Heatmap
@@ -38,3 +39,4 @@ plt.yticks(color="white", rotation=0)
 
 # 5. Save the Image
 plt.savefig("series_graph.png", bbox_inches='tight', facecolor='#121212')
+
