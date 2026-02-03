@@ -1,1 +1,1 @@
-# My-series-stas
+# My-series-stas ![Series Graph](./series_graph.png)
